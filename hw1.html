@@ -1,0 +1,173 @@
+<html>
+<head>
+    <title>INFO 4310 Homework 1: Static Data Visualization</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+    
+<body>
+    
+<div class = "header">
+    <p>100 Years of Natural Disasters</p>
+</div>
+    
+<div class = "dataViz">
+    <script>
+        
+        // Set up SVG Space
+        var width = 800;
+        var height = 100;
+        
+        var epidemicSVG = d3.select(".dataViz").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("background-color", 'white');
+        
+        var droughtSVG = d3.select(".dataViz").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("background-color", 'white');
+        
+        var floodSVG = d3.select(".dataViz").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("background-color", 'white');
+        
+        var seismicSVG = d3.select(".dataViz").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("background-color", 'white');
+        
+        var stormSVG = d3.select(".dataViz").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("background-color", 'white');
+                
+        var heatSVG = d3.select(".dataViz").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("background-color", 'white');
+        
+        var coldSVG = d3.select(".dataViz").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("background-color", 'white');
+        
+       
+        
+        //'#212F3D'
+    
+        
+        // Extract data from csv file
+        function parseLine(line) {
+            return {
+                year: Number(line['Year_start']),
+                country: line['Country'],
+                type: line['Type'],
+                subType: line['Sub_Type'],
+                killed: Number(line['Killed'])
+            } 
+        }
+        
+        var dstr;
+        var allYears = new Set();
+        
+        var epidemic = {};
+        var flood = {};
+        var drought = {};
+        var seismic = {};
+        var storm = {};
+        var cold = {};
+        var heat = {};
+        
+        
+        xScale = d3.scaleLinear()
+        .domain( [1900, 2020] )
+        .range( [50,800] );
+        
+        rScale = d3.scaleSqrt()
+        .domain( [101, 5000000] )
+        .range( [2, 50] );
+        
+        
+        
+        d3.csv("HighIncome", parseLine, function(error, data) {
+            dstr = data;
+            
+            // Group data into disaster categories
+            dstr.forEach(function(d){
+                
+                t = String(d.type); 
+                allYears.add(d.year)
+                
+                if (t == 'Epidemic') {
+                    epidemic[d.year] = d.killed;
+                }
+                else if (t == 'Flood') {
+                    flood[d.year] = d.killed;
+                }
+                else if (t == 'Drought') {
+                    drought[d.year] = d.killed;
+                }
+                else if (t == 'Earthquake (seismic activity)') {
+                    seismic[d.year] = d.killed;
+                }
+                
+                else if (t == 'Storm'){
+                    storm[d.year] = d.killed;
+                }
+                else if (t == 'Extreme temperature'){
+                    subT = String(d.subType);
+                    if (subT == 'Heat wave'){
+                        heat[d.year] = d.killed;
+                    }
+                    else{
+                        cold[d.year] = d.killed;
+                    }
+                }
+            })
+            
+            
+            
+            
+            
+            y = 60;
+            drawCircles(epidemic, y, epidemicSVG, "blue")
+            
+            drawCircles(flood, y, floodSVG, "blue")
+
+            drawCircles(drought, y, droughtSVG, "blue")
+            drawCircles(storm, y, stormSVG, "blue")
+            drawCircles(seismic, y, seismicSVG, "blue")
+            
+            drawCircles(heat, y, heatSVG, "red")
+            drawCircles(cold, y, coldSVG, "red")
+            
+        
+            
+            allYears = Array.from(allYears)
+            allYears.sort()
+            
+        });
+        
+                         
+        function drawCircles(disaster, y, svg, color){
+                svg.selectAll("circle")
+                .data(Object.keys(disaster))
+                .enter()
+                .append("circle")
+                .attr("cx", function(c){return xScale(c)})
+                .attr("cy", y)
+                .attr("r", function(r) {return rScale(disaster[r])})
+                .attr("fill", color)
+                .attr("opacity", 0.4);
+        }
+
+
+        
+    </script>
+</div>    
+    
+    
+</body>
+    
+</html>
