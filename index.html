@@ -74,10 +74,10 @@
         }
         
         .vizTitle{
-            font-size: 14;
+            font-size: 12;
             font-family: 'Nunito Sans', Calibri, sans-serif;
-            font-weight: 400;
-            fill:white;
+            font-weight: 100;
+            fill: white;
         }
         
     </style>
@@ -127,7 +127,7 @@
 
         var timelineSVG = d3.select(".dataViz").append("svg")
             .attr("width", width)
-            .attr("height", 70)
+            .attr("height", 40)
             .style("background-color", backColor);        
                 
         var stormSVG = d3.select(".dataViz").append("svg")
@@ -171,7 +171,7 @@
         // Text elements
         
         var textX = 40;
-        var textY = 40;
+        var textY = 42;
         var textColor = "#757A79"
         
         stormSVG.append("text")
@@ -221,10 +221,10 @@
         
         rScale = d3.scaleSqrt()
         .domain( [101, 50000] )
-        .range( [2, 12] );
+        .range( [1.5, 10] );
         
         timelineSVG.append("line")
-            .attr("y1", 60).attr("y2", 60)
+            .attr("y1", 35).attr("y2", 35)
             .attr("x1", xScale(1950)).attr("x2", xScale(2008))
             .attr("stroke", "#757A79")
             .style("stroke-width", "1px")
@@ -240,58 +240,60 @@
         timelineSVG.append("text")
         .text("1950")
         .attr("x", xScale(1950))
-        .attr("y", 50)
+        .attr("y", 25)
         .attr("class", "year")
         
         timelineSVG.append("text")
         .text("2008")
         .attr("x", xScale(2008) - 20)
-        .attr("y", 50)
+        .attr("y", 25)
         .attr("class", "year")
         
         timelineSVG.append("text")
         .text("1980")
         .attr("x", xScale(1980) - 20)
-        .attr("y", 50)
+        .attr("y", 25)
         .attr("class", "year")
         
         
         // Add legend
         
-        timelineSVG.append("text")
-        .text("Reported Deaths Casued by Natural Disasters")
+        bottomSVG.append("text")
+        .text("Reported Deaths")
         .attr("x", xScale(1950))
-        .attr("y",15)
-        .attr("class", "vizTitle");
+        .attr("y", 50)
+        .attr("class", "eventTitle")
         
         bottomSVG.append("circle")
-        .attr("cx", xScale(1951))
-        .attr("cy", 50)
+        .attr("cx", xScale(1960))
+        .attr("cy", 48)
         .attr("r", 2)
-        .attr("fill", "#757A79")
+        .attr("stroke", "#757A79")
+        .attr("stroke-width", 0.8)
         
          bottomSVG.append("circle")
-        .attr("cx", xScale(1954))
-        .attr("cy", 50)
-        .attr("r", 7)
-        .attr("fill", "#757A79")
-        
+        .attr("cx", xScale(1962))
+        .attr("cy", 48)
+        .attr("r", 6)
+        .attr("stroke", "#757A79")
+        .attr("stroke-width", 0.8)
+
          bottomSVG.append("circle")
-        .attr("cx", xScale(1958))
-        .attr("cy", 50)
-        .attr("r", 12)
-        .attr("fill", "#757A79")
-         
-         
+        .attr("cx", xScale(1965))
+        .attr("cy", 48)
+        .attr("r", 10)
+        .attr("stroke", "#757A79")
+        .attr("stroke-width", 0.8)
+     
          bottomSVG.append("text")
          .text("100")
-         .attr("x", xScale(1950)).attr("y", 80)
+         .attr("x", xScale(1959)).attr("y", 75)
          .attr("class", "year")
          
          
          bottomSVG.append("text")
          .text("5,000 + ")
-         .attr("x", xScale(1957)).attr("y", 80)
+         .attr("x", xScale(1964)).attr("y", 75)
          .attr("class", "year")
          
          bottomSVG.append("text")
@@ -299,7 +301,6 @@
          .attr("x", xScale(1978))
          .attr("y", 50)
          .attr("class", "year")
-         
          
          bottomSVG.append("text").text("http://www.un.org/en/development")
         .attr("x", xScale(1993))
