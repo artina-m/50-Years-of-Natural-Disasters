@@ -4,92 +4,95 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <style>
         body {
-            background-color: black;
-            width: 2000px;
-            text-align: center
+            width: 800px;
+            text-align: center;
         }
 
         div{
-=            width: 500px;
              margin: 0, auto;
              text-align: center
         }  
         
         .leftHand{
-            height: 600px;
+            height: 300px;
             width: 100%;
             margin: 0, auto;
-            text-align: center
-
+            text-align: center;
+            background-color: black;
         }
         
         .eventTitle{
-            font-size: 25;
+            font-size: 12;
             font-family: 'Nunito Sans', Calibri, sans-serif;
             font-weight: 400;
+            fill:#757A79;
         }
+        
         .title{
-            font-size: 52;
+            font-size: 24;
             font-family: 'Nunito Sans', Calibri, sans-serif;
-            font-weight: 200;
+            font-weight: 400;
             color: white;
             margin-bottom: 2px;
+            text-align: center;
         }
         
         .subtitle{
-            font-size: 25;
+            font-size: 12;
             font-family: 'Nunito Sans', Calibri, sans-serif;
             font-weight: 200;
             color: #757A79;
+            text-align: center;
         }
         
         .t {
             color: white;
             width: 200px;
             display: inline;
-            font-size: 25;
+            font-size: 10;
             font-family: 'Nunito Sans', Calibri, sans-serif;
             font-weight: 200;
             text-decoration: none;
-            border-bottom: 2px solid #757A79;
+            border-bottom: 0.5px solid #757A79;
             padding-right:10px;
             padding-left:10px;
             padding-bottom: 10px;
-
-        }
-        
-        .map0{
-            width:100px;
-            height: 300px;
-            display: inline-block;
-
         }
         
         .map{
-            width:400px;
-            height: 300px;
+            width:210px;
+            height: 50px;
             display: inline-block;
 
         }
         
         .year{
             fill: #757A79;
-            font-size: 20;
+            font-size: 10;
             font-family: 'Nunito Sans', Calibri, sans-serif;
             font-weight: 200;
         }
+        
+        .vizTitle{
+            font-size: 14;
+            font-family: 'Nunito Sans', Calibri, sans-serif;
+            font-weight: 400;
+            fill:white;
+        }
+        
     </style>
 </head>
     
 <body>
     
 
+<div style = "width:800px; display: inline-block; text-align:center">
 <div class = "leftHand" >
     <br>
     <p class = "title">50 Years <br> of Natural Disasters</p>
-    <p class = "subtitle">The death toll of Natural Disasters in different <br> income level regions of the world</p>
-    <br><br>
+    <p class = "subtitle">The death toll of Natural Disasters in different income level regions of the world</p>
     
+    <br>
     
     <div class = "map">
         <p class = "t">High Income</p>
@@ -109,28 +112,23 @@
             <img src = "lowIncomeCountries.png" style = "width: 90%">
     </div>
     
-    <p>Number Killed</p>
-
 </div>
-<div style = "height: 100px">
+<div style = "height: 49px; background-color: black;">
 </div>
     
-<div class = "dataViz">
+<div class = "dataViz" style = "width: 800px;margin: 0, auto; text-align: center;display: inline-block;">
     <script>
         
         // Set up SVG Space
-        var width = 1500;
-        var height =180;
+        var width = 800;
+        var height =85;
         var backColor = "black"
         
 
-        
         var timelineSVG = d3.select(".dataViz").append("svg")
             .attr("width", width)
-            .attr("height", 50)
-            .style("background-color", backColor);
-                
-        
+            .attr("height", 70)
+            .style("background-color", backColor);        
                 
         var stormSVG = d3.select(".dataViz").append("svg")
             .attr("width", width)
@@ -158,20 +156,22 @@
             .attr("height", height)
             .style("background-color", backColor);
         
-        var bottomSVG = d3.select(".dataViz").append("svg")
+        var topSVG = d3.select(".leftHand").append("svg")
             .attr("width", width)
             .attr("height", 50)
             .style("background-color", backColor);
         
-       
-       
-    
-        //'#212F3D'
+         var bottomSVG = d3.select(".dataViz").append("svg")
+            .attr("width", width)
+            .attr("height", 140)
+            .style("background-color", backColor);
         
+           
+        //'#212F3D'
         // Text elements
         
-        var textX = 30;
-        var textY = 70;
+        var textX = 40;
+        var textY = 40;
         var textColor = "#757A79"
         
         stormSVG.append("text")
@@ -187,7 +187,6 @@
             .attr("class", "eventTitle")
             .attr("fill", textColor)
         
-        
         epidemicSVG.append("text")
             .text("Epidemic")
             .attr("x", textX)
@@ -197,13 +196,13 @@
         heatSVG.append("text")
             .text("Extreme")
             .attr("x", textX)
-            .attr("y", textY - 10)
+            .attr("y", textY - 5)
             .attr("class", "eventTitle").attr("fill", textColor)
         
         heatSVG.append("text")
             .text("Temperature")
             .attr("x", textX)
-            .attr("y", textY + 20)
+            .attr("y", textY + 10)
             .attr("class", "eventTitle").attr("fill", textColor)
         
         floodSVG.append("text")
@@ -211,8 +210,6 @@
             .attr("x", textX)
             .attr("y", textY)
             .attr("class", "eventTitle").attr("fill", textColor)
-            
-        
 
         // Line elements
         var lineColor = "white"
@@ -220,43 +217,96 @@
         
         xScale = d3.scaleLinear()
         .domain( [1950, 2008] )
-        .range( [200,1450] );
+        .range( [120,700] );
         
         rScale = d3.scaleSqrt()
-        .domain( [100, 50000] )
-        .range( [3, 25] );
+        .domain( [101, 50000] )
+        .range( [2, 12] );
         
         timelineSVG.append("line")
-            .attr("y1", 40).attr("y2", 40)
+            .attr("y1", 60).attr("y2", 60)
             .attr("x1", xScale(1950)).attr("x2", xScale(2008))
             .attr("stroke", "#757A79")
             .style("stroke-width", "1px")
+        
+        heatSVG.append("line")
+        .attr("y1", 85).attr("y2", 85)
+        .attr("x1", xScale(1950)).attr("x2", xScale(2008))
+        .attr("stroke", "#757A79")
+        .style("stroke-width", "1px")
+        
         
         // Add years
         timelineSVG.append("text")
         .text("1950")
         .attr("x", xScale(1950))
-        .attr("y", 15)
+        .attr("y", 50)
         .attr("class", "year")
         
         timelineSVG.append("text")
         .text("2008")
-        .attr("x", xScale(2008) - 40)
-        .attr("y", 15)
+        .attr("x", xScale(2008) - 20)
+        .attr("y", 50)
         .attr("class", "year")
         
         timelineSVG.append("text")
         .text("1980")
-        .attr("x", xScale(1980) - 40)
-        .attr("y", 15)
+        .attr("x", xScale(1980) - 20)
+        .attr("y", 50)
         .attr("class", "year")
         
         
-        heatSVG.append("line")
-            .attr("y1", 140).attr("y2", 140)
-            .attr("x1", xScale(1950)).attr("x2", xScale(2008))
-            .attr("stroke", "#757A79")
-            .style("stroke-width", "1px")
+        // Add legend
+        
+        timelineSVG.append("text")
+        .text("Reported Deaths Casued by Natural Disasters")
+        .attr("x", xScale(1950))
+        .attr("y",15)
+        .attr("class", "vizTitle");
+        
+        bottomSVG.append("circle")
+        .attr("cx", xScale(1951))
+        .attr("cy", 50)
+        .attr("r", 2)
+        .attr("fill", "#757A79")
+        
+         bottomSVG.append("circle")
+        .attr("cx", xScale(1954))
+        .attr("cy", 50)
+        .attr("r", 7)
+        .attr("fill", "#757A79")
+        
+         bottomSVG.append("circle")
+        .attr("cx", xScale(1958))
+        .attr("cy", 50)
+        .attr("r", 12)
+        .attr("fill", "#757A79")
+         
+         
+         bottomSVG.append("text")
+         .text("100")
+         .attr("x", xScale(1950)).attr("y", 80)
+         .attr("class", "year")
+         
+         
+         bottomSVG.append("text")
+         .text("5,000 + ")
+         .attr("x", xScale(1957)).attr("y", 80)
+         .attr("class", "year")
+         
+         bottomSVG.append("text")
+         .text("Country classification based on 2014 net income data collected by the UN: ")
+         .attr("x", xScale(1978))
+         .attr("y", 50)
+         .attr("class", "year")
+         
+         
+         bottomSVG.append("text").text("http://www.un.org/en/development")
+        .attr("x", xScale(1993))
+         .attr("y", 65)
+         .attr("class", "year")
+        
+        
 
         
         // Extract data from csv file
@@ -279,7 +329,6 @@
             hH[i] = 0; hM[i] = 0; hL[i] = 0;
             fH[i] = 0; fM[i] = 0; fL[i] = 0;
         }
-        
         
         
         function parseLine(line) {
@@ -353,18 +402,15 @@
 
                         }
                     }
-                
             });
-            console.log(eH,eM, eL)
+            
             scatterMe(eH,eM,eL, epidemicSVG)
             scatterMe(stH,stM,stL, stormSVG)
             scatterMe(sH,sM,sL, seismicSVG)
             scatterMe(hH,hM,hL, heatSVG)
             scatterMe(fH,fM,fL, floodSVG)
             
-
         });
-        
         
         
         heightScale = d3.scaleSqrt().domain( [0, 90000] )
@@ -380,67 +426,31 @@
                     
                 svg.append("circle")
                 .attr("cx", xScale(i))
-                .attr("cy", 40)
+                .attr("cy", 20)
                 .attr("r", rScale(H[i]))
                 .attr("fill", "white")
                 .attr("opacity", 0.7)
                 
                 svg.append("circle")
                 .attr("cx", xScale(i))
-                .attr("cy", 70)
+                .attr("cy", 40)
                 .attr("r", rScale(M[i]))
                 .attr("fill", "orange")
                 .attr("opacity", 0.7)
                 
                 svg.append("circle")
                 .attr("cx", xScale(i))
-                .attr("cy", 100)
+                .attr("cy", 60)
                 .attr("r", rScale(L[i]))
                 .attr("fill", "#DD3156")
                 .attr("opacity", 0.7)
                 
-            
            }
-                       
         }
-        
-        
-        
-    
-        function drawBars(H,M,L, svg){
-                for (i in H){
-                    
-                var h1 = height;
-                var h2 = h1  - heightScale(H[i]);
-                var h3 = h2 - heightScale(M[i]);
-                    
-                svg.append("line")
-                .attr("x1", xScale(i)).attr("x2", xScale(i))
-                .attr("y1", h1)
-                .attr("y2", h1 -  heightScale(H[i]))
-                .attr("stroke", "white")
-                .attr("stroke-width", 4)
-                
-                svg.append("line")
-                .attr("x1", xScale(i)).attr("x2", xScale(i))
-                .attr("y1", h2)
-                .attr("y2", h2 - heightScale(M[i]))
-                .attr("stroke",  "#DD6231")
-                .attr("stroke-width", 4)
-                
-                svg.append("line")
-                .attr("x1", xScale(i)).attr("x2", xScale(i))
-                .attr("y1", h3)
-                .attr("y2", h3 - heightScale(L[i]))
-                .attr("stroke", "#DD3156")
-                .attr("stroke-width", 4)
-           }
-                       
-        }
-
                 
     </script>
 </div>    
+</div>
     
     
 </body>
