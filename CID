@@ -35,18 +35,18 @@
 34	1922	China P Rep	50000	Storm	Tropical cyclone	Middle
 35	1973	Ethiopia	50000	Drought	Drought	Lower
 36	1981	Mozambique	50000	Drought	Drought	Lower
-37	1923	Niger	100000	Epidemic	Bacterial Infectious Diseases	Lower
+37	1923	Niger	50000	Epidemic	Bacterial Infectious Diseases	Lower
 38	2008	China P Rep	50000	Earthquake (seismic activity)	Earthquake (ground shaking)	Middle
-39	1910	Niger	85000	Drought	Drought	Lower
+39	1910	Niger	50000	Drought	Drought	Lower
 40	1908	Italy	50000	Earthquake (seismic activity)	Earthquake (ground shaking)	Higher
 41	2005	Pakistan	50000	Earthquake (seismic activity)	Earthquake (ground shaking)	Lower
-42	1932	China P Rep	70000	Earthquake (seismic activity)	Earthquake (ground shaking)	Middle
+42	1932	China P Rep	50000	Earthquake (seismic activity)	Earthquake (ground shaking)	Middle
 43	1970	Peru	50000	Earthquake (seismic activity)	Earthquake (ground shaking)	Middle
-44	1942	Bangladesh	61000	Storm	Tropical cyclone	Lower
-45	1910	China P Rep	60000	Epidemic	Bacterial Infectious Diseases	Middle
-46	1935	India	60000	Storm	Tropical cyclone	Lower
-47	1935	Pakistan	60000	Earthquake (seismic activity)	Earthquake (ground shaking)	Lower
-48	1949	China P Rep	57000	Flood		Middle
+44	1942	Bangladesh	50000	Storm	Tropical cyclone	Lower
+45	1910	China P Rep	50000	Epidemic	Bacterial Infectious Diseases	Middle
+46	1935	India	50000	Storm	Tropical cyclone	Lower
+47	1935	Pakistan	50000	Earthquake (seismic activity)	Earthquake (ground shaking)	Lower
+48	1949	China P Rep	50000	Flood		Middle
 49	1918	Canada	50000	Epidemic	Viral Infectious Diseases	Higher
 50	1912	China P Rep	50000	Storm	Tropical cyclone	Middle
 51	1949	Guatemala	40000	Flood		Lower
