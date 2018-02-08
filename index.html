@@ -4,21 +4,25 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <style>
         body {
-            width: 700px;
-            text-align: center;
+            width: 1200px;
+            
+        
         }
 
         div{
              margin: 0, auto;
-             text-align: center
+             text-align: center;
+             height: 700px;
+             background-color: black;
         }  
         
         .leftHand{
-            height: 300px;
-            width: 100%;
+            height: 500px;
+            width: 380;
             margin: 0, auto;
             text-align: center;
             background-color: black;
+            float:left;
         }
         
         .eventTitle{
@@ -34,22 +38,24 @@
             font-weight: 400;
             color: white;
             margin-bottom: 2px;
-            text-align: center;
+            text-align: left;
+            margin-left: 80px;
         }
         
         .subtitle{
-            font-size: 12;
+            font-size: 14;
             font-family: 'Nunito Sans', Calibri, sans-serif;
             font-weight: 200;
             color: #757A79;
-            text-align: center;
+            text-align: left;
+            margin-left: 80px;
         }
         
         .t {
             color: white;
             width: 200px;
             display: inline;
-            font-size: 10;
+            font-size: 12;
             font-family: 'Nunito Sans', Calibri, sans-serif;
             font-weight: 200;
             text-decoration: none;
@@ -60,15 +66,16 @@
         }
         
         .map{
-            width:210px;
-            height: 50px;
+            width:300px;
+            height: 200px;
             display: inline-block;
+            margin-left: 50px;
 
         }
         
         .year{
             fill: #757A79;
-            font-size: 11;
+            font-size: 12;
             font-family: 'Nunito Sans', Calibri, sans-serif;
             font-weight: 200;
         }
@@ -86,42 +93,34 @@
 <body>
     
 
-<div style = "width:800px; display: inline-block; text-align:center">
+<div style = "width:1200px; height:720px; display: inline-block; text-align:center">
 <div class = "leftHand" >
-    <br>
-    <p class = "title">50 Years <br> of Natural Disasters</p>
-    <p class = "subtitle">How the number of reported deaths caused by natural disasters <br>
-        varies across country net income classes.</p>
+    <div style = "height: 60px; background-color: black;">
+    </div>
+    <p class = "title">50 Years <br> of Deadly Natural Disasters</p>
+    <p class = "subtitle">How the number of reported deaths caused by natural disasters varies across country net income classes.</p>
     
-    <br>
-    
-    <div class = "map">
-        <p class = "t">High Income</p>
-        <br><br><br>
-        <img src = "highIncomeCountries.png" style = "width: 90%">
+    <div style = "height: 30px; background-color: black;">
     </div>
     
     <div class = "map">
-        <p class = "t">Middle Income</p>
-        <br><br><br>
-        <img src = "middleIncomeCountries.png" style = "width: 90%">
+        <img src = "totalworld.png" style = "width: 100%">
     </div>
     
-    <div class = "map">
-        <p class = "t">Low Income</p>
-        <br><br><br>
-            <img src = "lowIncomeCountries.png" style = "width: 90%">
+     <div style = "height: 25px; background-color: black;">
     </div>
+    
     
 </div>
-<div style = "height: 55px; background-color: black;">
-</div>
+
+<div class = "dataViz" style = "width: 750px;margin: 0, auto; text-align: center;display: inline-block;float:left;">
+     <div style = "height: 80px; background-color: black;">
+     </div>
     
-<div class = "dataViz" style = "width: 800px;margin: 0, auto; text-align: center;display: inline-block;">
     <script>
         
         // Set up SVG Space
-        var width = 800;
+        var width = 750;
         var height =90;
         var backColor = "black"
         
@@ -156,16 +155,18 @@
             .attr("height", height)
             .style("background-color", backColor);
         
-        var topSVG = d3.select(".leftHand").append("svg")
-            .attr("width", width)
-            .attr("height", 50)
-            .style("background-color", backColor);
+
         
-         var bottomSVG = d3.select(".dataViz").append("svg")
+         var bottomSVG = d3.select(".leftHand").append("svg")
             .attr("width", width)
             .attr("height", 140)
             .style("background-color", backColor);
         
+        
+        var ackSVG = d3.select(".dataViz").append("svg")
+            .attr("width", width)
+            .attr("height", 140)
+            .style("background-color", backColor);
            
         //'#212F3D'
         // Text elements
@@ -227,7 +228,7 @@
             .attr("y1", 35).attr("y2", 35)
             .attr("x1", xScale(1950)).attr("x2", xScale(2008))
             .attr("stroke", "#757A79")
-            .style("stroke-width", 0.2)
+            .style("stroke-width", 1)
         
     
         
@@ -273,33 +274,70 @@
         .attr("y1", 87).attr("y2", 87)
         .attr("x1", xScale(1950)).attr("x2", xScale(2008))
         .attr("stroke", "#757A79")
-        .style("stroke-width", 0.2)
+        .style("stroke-width", 1)
         
         
         // Add legend
+        bottomSVG.append("text").text("Income Class")
+        .attr("x", 80)
+        .attr("y", 15)
+        .attr("class", "eventTitle")
+        
+         bottomSVG.append("circle")
+         .attr("cx", 180)
+         .attr("cy", 12)
+         .attr("r",5)
+         .attr("fill", "white")
+         
+        bottomSVG.append("text").text("Higher")
+        .attr("x", 190)
+        .attr("y", 15)
+        .attr("class", "eventTitle")
+         
+         bottomSVG.append("circle")
+         .attr("cx", 240)
+         .attr("cy", 12)
+         .attr("r",5)
+         .attr("fill", "orange")
+         
+         bottomSVG.append("text").text("Middle")
+        .attr("x", 250)
+        .attr("y", 15)
+        .attr("class", "eventTitle")
+         
+         bottomSVG.append("circle")
+         .attr("cx", 300)
+         .attr("cy", 12)
+         .attr("r",5)
+         .attr("fill", "#DD3156")
+         
+         bottomSVG.append("text").text("Lower")
+        .attr("x", 310)
+        .attr("y", 15)
+        .attr("class", "eventTitle")
         
         bottomSVG.append("text")
         .text("Reported Deaths")
-        .attr("x", xScale(1950))
+        .attr("x", 80)
         .attr("y", 50)
         .attr("class", "eventTitle")
         
         bottomSVG.append("circle")
-        .attr("cx", xScale(1960))
+        .attr("cx", 182)
         .attr("cy", 48)
         .attr("r", 2)
         .attr("stroke", "#757A79")
         .attr("stroke-width", 0.8)
         
          bottomSVG.append("circle")
-        .attr("cx", xScale(1962))
+        .attr("cx", 210)
         .attr("cy", 48)
         .attr("r", 6)
         .attr("stroke", "#757A79")
         .attr("stroke-width", 0.8)
 
          bottomSVG.append("circle")
-        .attr("cx", xScale(1965))
+        .attr("cx", 250)
         .attr("cy", 48)
         .attr("r", 10)
         .attr("stroke", "#757A79")
@@ -307,23 +345,24 @@
      
          bottomSVG.append("text")
          .text("100")
-         .attr("x", xScale(1959)).attr("y", 75)
+         .attr("x", 175).attr("y", 75)
          .attr("class", "year")
-         
          
          bottomSVG.append("text")
          .text("5,000 + ")
-         .attr("x", xScale(1964)).attr("y", 75)
+         .attr("x", 235).attr("y", 75)
          .attr("class", "year")
          
-         bottomSVG.append("text")
+        
+         
+         ackSVG.append("text")
          .text("Country classification based on 2014 net income data collected by the UN: ")
-         .attr("x", xScale(1975))
+         .attr("x", xScale(1973))
          .attr("y", 50)
          .attr("class", "year")
          
-         bottomSVG.append("text").text("http://www.un.org/en/development")
-        .attr("x", xScale(1991))
+         ackSVG.append("text").text("http://www.un.org/en/development")
+         .attr("x", xScale(1991))
          .attr("y", 65)
          .attr("class", "year")
         
