@@ -20,7 +20,6 @@
             width: 100%;
             margin: 0, auto;
             text-align: center
-
         }
         
         .eventTitle{
@@ -28,6 +27,7 @@
             font-family: 'Nunito Sans', Calibri, sans-serif;
             font-weight: 400;
         }
+        
         .title{
             font-size: 52;
             font-family: 'Nunito Sans', Calibri, sans-serif;
@@ -62,14 +62,12 @@
             width:100px;
             height: 300px;
             display: inline-block;
-
         }
         
         .map{
             width:400px;
             height: 300px;
             display: inline-block;
-
         }
         
         .year{
@@ -88,9 +86,8 @@
     <br>
     <p class = "title">50 Years <br> of Natural Disasters</p>
     <p class = "subtitle">The death toll of Natural Disasters in different <br> income level regions of the world</p>
+    
     <br><br>
-    
-    
     <div class = "map">
         <p class = "t">High Income</p>
         <br><br><br>
@@ -109,8 +106,6 @@
             <img src = "lowIncomeCountries.png" style = "width: 90%">
     </div>
     
-    <p> Number Killed</p>
-
 </div>
 <div style = "height: 100px">
 </div>
@@ -123,15 +118,12 @@
         var height =180;
         var backColor = "black"
         
-
         
         var timelineSVG = d3.select(".dataViz").append("svg")
             .attr("width", width)
             .attr("height", 50)
             .style("background-color", backColor);
-                
-        
-                
+                                
         var stormSVG = d3.select(".dataViz").append("svg")
             .attr("width", width)
             .attr("height", height)
@@ -147,7 +139,6 @@
             .attr("height", height)
             .style("background-color", backColor);
          
-        
         var epidemicSVG = d3.select(".dataViz").append("svg")
             .attr("width", width)
             .attr("height", height)
@@ -163,11 +154,8 @@
             .attr("height", 50)
             .style("background-color", backColor);
         
-       
-       
     
         //'#212F3D'
-        
         // Text elements
         
         var textX = 30;
@@ -186,7 +174,6 @@
             .attr("y", textY)
             .attr("class", "eventTitle")
             .attr("fill", textColor)
-        
         
         epidemicSVG.append("text")
             .text("Epidemic")
@@ -212,8 +199,6 @@
             .attr("y", textY)
             .attr("class", "eventTitle").attr("fill", textColor)
             
-        
-
         // Line elements
         var lineColor = "white"
         var lineHeight = 150
@@ -251,13 +236,12 @@
         .attr("y", 15)
         .attr("class", "year")
         
-        
         heatSVG.append("line")
             .attr("y1", 140).attr("y2", 140)
             .attr("x1", xScale(1950)).attr("x2", xScale(2008))
             .attr("stroke", "#757A79")
             .style("stroke-width", "1px")
-
+        
         
         // Extract data from csv file
         var dstr;
@@ -280,24 +264,24 @@
             fH[i] = 0; fM[i] = 0; fL[i] = 0;
         }
         
-        
-        
         function parseLine(line) {
             return {
                 year: Number(line['Year_start']),
                 country: line['Country'],
-                killed: Number(line['Killed']),
+                killed: Number(line['roundKilled']),
                 type: line['Type'],
                 subType: line['Sub_Type'],
                 income: line['income']
             } 
         }
         
-        
         d3.tsv("CID", parseLine, function(error, data) {
             dstr = data;
             y = 50
+            
             // Group data into disaster categories
+            // Get data for only yers >= 1950 
+
             dstr.forEach(function(d){
                 
                 t = String(d.type); 
@@ -355,22 +339,18 @@
                     }
                 
             });
-            console.log(eH,eM, eL)
+            
+            
+            // Create plots
             scatterMe(eH,eM,eL, epidemicSVG)
             scatterMe(stH,stM,stL, stormSVG)
             scatterMe(sH,sM,sL, seismicSVG)
             scatterMe(hH,hM,hL, heatSVG)
             scatterMe(fH,fM,fL, floodSVG)
             
-
         });
         
-        
-        
-        heightScale = d3.scaleSqrt().domain( [0, 90000] )
-                    .range( [0, 90] );
-        
-        
+    
         function scatterMe(H,M,L,svg){
             for (i in H){
                     
@@ -399,45 +379,9 @@
                 .attr("fill", "#DD3156")
                 .attr("opacity", 0.7)
                 
-            
            }
                        
         }
-        
-        
-        
-    
-        function drawBars(H,M,L, svg){
-                for (i in H){
-                    
-                var h1 = height;
-                var h2 = h1  - heightScale(H[i]);
-                var h3 = h2 - heightScale(M[i]);
-                    
-                svg.append("line")
-                .attr("x1", xScale(i)).attr("x2", xScale(i))
-                .attr("y1", h1)
-                .attr("y2", h1 -  heightScale(H[i]))
-                .attr("stroke", "white")
-                .attr("stroke-width", 4)
-                
-                svg.append("line")
-                .attr("x1", xScale(i)).attr("x2", xScale(i))
-                .attr("y1", h2)
-                .attr("y2", h2 - heightScale(M[i]))
-                .attr("stroke",  "#DD6231")
-                .attr("stroke-width", 4)
-                
-                svg.append("line")
-                .attr("x1", xScale(i)).attr("x2", xScale(i))
-                .attr("y1", h3)
-                .attr("y2", h3 - heightScale(L[i]))
-                .attr("stroke", "#DD3156")
-                .attr("stroke-width", 4)
-           }
-                       
-        }
-
                 
     </script>
 </div>    

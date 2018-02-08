@@ -4,7 +4,7 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <style>
         body {
-            width: 800px;
+            width: 700px;
             text-align: center;
         }
 
@@ -90,7 +90,8 @@
 <div class = "leftHand" >
     <br>
     <p class = "title">50 Years <br> of Natural Disasters</p>
-    <p class = "subtitle">The death toll of Natural Disasters in different income level regions of the world</p>
+    <p class = "subtitle">How the number of reported deaths caused by natural disasters <br>
+        varies across country net income classes.</p>
     
     <br>
     
@@ -113,7 +114,7 @@
     </div>
     
 </div>
-<div style = "height: 49px; background-color: black;">
+<div style = "height: 55px; background-color: black;">
 </div>
     
 <div class = "dataViz" style = "width: 800px;margin: 0, auto; text-align: center;display: inline-block;">
@@ -121,7 +122,7 @@
         
         // Set up SVG Space
         var width = 800;
-        var height =85;
+        var height =90;
         var backColor = "black"
         
 
@@ -221,19 +222,15 @@
         
         rScale = d3.scaleSqrt()
         .domain( [101, 50000] )
-        .range( [1.5, 10] );
+        .range( [1.5, 12] );
         
         timelineSVG.append("line")
             .attr("y1", 35).attr("y2", 35)
             .attr("x1", xScale(1950)).attr("x2", xScale(2008))
             .attr("stroke", "#757A79")
-            .style("stroke-width", "1px")
+            .style("stroke-width", 0.2)
         
-        heatSVG.append("line")
-        .attr("y1", 85).attr("y2", 85)
-        .attr("x1", xScale(1950)).attr("x2", xScale(2008))
-        .attr("stroke", "#757A79")
-        .style("stroke-width", "1px")
+    
         
         
         // Add years
@@ -254,6 +251,12 @@
         .attr("x", xScale(1980) - 20)
         .attr("y", 25)
         .attr("class", "year")
+        
+        heatSVG.append("line")
+        .attr("y1", 87).attr("y2", 87)
+        .attr("x1", xScale(1950)).attr("x2", xScale(2008))
+        .attr("stroke", "#757A79")
+        .style("stroke-width", 0.2)
         
         
         // Add legend
@@ -336,7 +339,7 @@
             return {
                 year: Number(line['Year_start']),
                 country: line['Country'],
-                killed: Number(line['Killed']),
+                killed: Number(line['roundKilled']),
                 type: line['Type'],
                 subType: line['Sub_Type'],
                 income: line['income']
